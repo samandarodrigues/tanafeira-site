@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TaNaFeira — Login / Cadastro Vendedor</title>
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    crossorigin="anonymous"
+  />
+
+  <!-- GOOGLE FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --verde-esc: #1b4332;
+      --verde-mid: #2d6a4f;
+      --verde-claro: #74c69d;
+      --amarelo: #ffd60a;
+      --creme: #fffdfa;
+      --text: #24303a;
+      --radius: 22px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.25);
+      --transition: all .3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: 
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)),
+        url('https://blog.123milhas.com/wp-content/uploads/2023/04/Veja-cinco-lugares-para-conhecer-a-Caatinga-caatinga-paraiba-Conexao123.jpg')
+        center/cover no-repeat;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .auth-container {
+      display: flex;
+      flex-direction: row;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.35);
+      width: 100%;
+      max-width: 1000px;
+      min-height: 580px;
+      backdrop-filter: blur(12px);
+      animation: fadeIn .8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* FORM SIDE */
+    .form-side {
+      flex: 1;
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
+
+    .form-side::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle at top right, rgba(255,214,10,0.15), transparent 70%);
+      z-index: 0;
+    }
+
+    .form-side h2 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      background: linear-gradient(90deg, var(--verde-mid), var(--verde-esc));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      animation: fadeTitle 0.8s ease forwards;
+    }
+
+    .form-side h2::after {
+      content: "";
+      display: block;
+      width: 90px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--amarelo), var(--verde-claro));
+      border-radius: 2px;
+      margin: 10px auto 25px;
+      animation: slideIn 1s ease forwards;
+    }
+
+    @keyframes fadeTitle {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { width: 0; opacity: 0; }
+      to { width: 90px; opacity: 1; }
+    }
+
+    .subtitle {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 35px;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
+      transition: var(--transition);
+      z-index: 2;
+    }
+
+    form input, form select {
+      padding: 14px 16px;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      font-size: 15px;
+      background: #fdfdfd;
+      transition: var(--transition);
+    }
+
+    form input:focus, form select:focus {
+      border-color: var(--verde-claro);
+      box-shadow: 0 0 0 4px rgba(82,183,136,0.25);
+      outline: none;
+      background: #fff;
+    }
+
+    form button {
+      background: linear-gradient(90deg, var(--amarelo), #ffb84d);
+      border: none;
+      border-radius: 999px;
+      padding: 15px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      color: #2b2b2b;
+      box-shadow: 0 6px 20px rgba(255,174,0,0.3);
+      transition: all .25s ease;
+    }
+
+    form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 26px rgba(255,174,0,0.4);
+      background: linear-gradient(90deg, #ffe15a, #ffc93c);
+    }
+
+    .toggle-text {
+      font-size: 15px;
+      color: #444;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .toggle-text button {
+      background: none;
+      border: none;
+      color: var(--verde-mid);
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    .toggle-text button:hover {
+      color: var(--verde-esc);
+      text-decoration: underline;
+    }
+
+    /* VISUAL SIDE */
+    .visual-side {
+      flex: 1;
+      background: linear-gradient(135deg, var(--verde-mid) 0%, var(--verde-esc) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 40px;
+      color: #fff;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual-side::before {
+      content: "";
+      position: absolute;
+      width: 850px;
+      height: 850px;
+      background: radial-gradient(circle at 25% 40%, rgba(255,255,255,0.15), transparent 70%);
+      top: -150px;
+      left: -150px;
+      transform: rotate(25deg);
+      transition: 1.5s ease;
+    }
+
+    .visual-side:hover::before {
+      transform: rotate(65deg);
+      opacity: 0.7;
+    }
+
+    .brand-content {
+      position: relative;
+      z-index: 2;
+      max-width: 400px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .brand-icon {
+      width: 85px;
+      height: 85px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      color: var(--amarelo);
+      box-shadow: 0 0 25px rgba(255,214,10,0.4);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .visual-side h1 {
+      font-size: 2.8rem;
+      margin-bottom: 18px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.45);
+    }
+
+    .visual-side p {
+      font-size: 1.1rem;
+      max-width: 340px;
+      margin: 0 auto;
+      opacity: 0.95;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 950px) {
+      .auth-container { flex-direction: column-reverse; }
+      .visual-side { min-height: 260px; padding: 40px 30px; }
+      .visual-side h1 { font-size: 2rem; }
+      .brand-icon { width: 70px; height: 70px; font-size: 30px; }
+      .form-side { padding: 40px 25px; }
+    }
+
+    @media (max-width: 480px) {
+      form input, form select { font-size: 14px; }
+      form button { font-size: 15px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="auth-container">
+    <!-- FORM SIDE -->
+    <div class="form-side">
+      <h2 id="form-title">
+        <i class="fa-solid fa-seedling" style="color: var(--verde-claro); margin-right: 8px;"></i>
+        Login Vendedor
+      </h2>
+      <p class="subtitle" id="form-subtitle">Entre com e-mail ou telefone</p>
+
+      <form id="login-form">
+        <input type="text" placeholder="E-mail ou Telefone" required>
+        <input type="password" placeholder="Senha" required>
+        <button type="submit"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+      </form>
+
+      <form id="signup-form" style="display:none;">
+        <input type="text" placeholder="Nome completo" required>
+        <input type="email" placeholder="E-mail" required>
+        <input type="tel" placeholder="Telefone" required>
+        <input type="password" placeholder="Senha" required>
+        <input type="text" placeholder="Cidade / Local" required>
+        <input type="text" placeholder="Endereço / Bairro" required>
+        <input type="text" placeholder="CPF / CNPJ" required>
+        <select required>
+          <option value="" disabled selected>Tipo de produto</option>
+          <option>Hortaliças</option>
+          <option>Frutas</option>
+          <option>Grãos</option>
+          <option>Produtos artesanais</option>
+          <option>Outros</option>
+        </select>
+        <button type="submit"><i class="fas fa-user-plus"></i> Cadastrar</button>
+      </form>
+
+      <p class="toggle-text">
+        <span id="toggle-message">Ainda não tem conta?</span>
+        <button id="toggle-button">Cadastrar</button>
+      </p>
+    </div>
+
+    <!-- VISUAL SIDE -->
+    <div class="visual-side">
+      <div class="brand-content">
+        <div class="brand-icon">
+          <i class="fa-solid fa-leaf"></i>
+        </div>
+        <h1>TaNaFeira</h1>
+        <p>Conectando produtores locais e clientes com transparência, confiança e praticidade.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('toggle-button');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const formTitle = document.getElementById('form-title');
+    const formSubtitle = document.getElementById('form-subtitle');
+    const toggleMsg = document.getElementById('toggle-message');
+
+    toggleBtn.addEventListener('click', () => {
+      const isLogin = loginForm.style.display !== 'none';
+      if (isLogin) {
+        loginForm.style.display = 'none';
+        signupForm.style.display = 'flex';
+        formTitle.innerHTML = '<i class="fa-solid fa-user-plus" style="color: var(--verde-claro); margin-right: 8px;"></i> Cadastrar Novo Vendedor';
+        formSubtitle.textContent = 'Preencha as informações detalhadas para se registrar';
+        toggleMsg.textContent = 'Já tem conta?';
+        toggleBtn.textContent = 'Entrar';
+      } else {
+        loginForm.style.display = 'flex';
+        signupForm.style.display = 'none';
+        formTitle.innerHTML = '<i class="fa-solid fa-seedling" style="color: var(--verde-claro); margin-right: 8px;"></i> Login Vendedor';
+        formSubtitle.textContent = 'Entre com e-mail ou telefone';
+        toggleMsg.textContent = 'Ainda não tem conta?';
+        toggleBtn.textContent = 'Cadastrar';
+      }
+    });
+  </script>
+</body>
+</html>
