@@ -6,13 +6,7 @@
   <title>TaNaFeira — Login / Cadastro Vendedor</title>
 
   <!-- FONT AWESOME -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    crossorigin="anonymous"
-  />
-
-  <!-- GOOGLE FONT -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -23,25 +17,24 @@
       --amarelo: #ffd60a;
       --creme: #fffdfa;
       --text: #24303a;
-      --radius: 22px;
-      --transition: all .3s ease;
-      --bg-form: rgba(255,255,255,0.95);
+      --bg-form: rgba(255,255,255,0.92);
       --input-bg: #fdfdfd;
       --input-border: #ddd;
+      --shadow: rgba(0,0,0,0.35);
+      --transition: all .3s ease;
     }
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --verde-esc: #081c15;
-        --verde-mid: #1b4332;
-        --verde-claro: #95d5b2;
-        --amarelo: #ffe066;
-        --creme: #121212;
-        --text: #f1f1f1;
-        --bg-form: rgba(28,28,28,0.9);
-        --input-bg: #1e1e1e;
-        --input-border: #333;
-      }
+    body.dark-mode {
+      --verde-esc: #081c15;
+      --verde-mid: #1b4332;
+      --verde-claro: #95d5b2;
+      --amarelo: #ffe066;
+      --creme: #121212;
+      --text: #f1f1f1;
+      --bg-form: rgba(28,28,28,0.9);
+      --input-bg: #1e1e1e;
+      --input-border: #333;
+      --shadow: rgba(255,255,255,0.1);
     }
 
     * {
@@ -52,8 +45,8 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: 
-        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.65)),
+      background:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)),
         url('https://blog.123milhas.com/wp-content/uploads/2023/04/Veja-cinco-lugares-para-conhecer-a-Caatinga-caatinga-paraiba-Conexao123.jpg')
         center/cover no-repeat;
       color: var(--text);
@@ -65,13 +58,39 @@
       transition: background-color .4s ease, color .4s ease;
     }
 
+    /* BOTÃO MODO ESCURO */
+    .toggle-theme {
+      position: fixed;
+      top: 20px;
+      right: 25px;
+      background: var(--bg-form);
+      color: var(--verde-mid);
+      border: 2px solid var(--input-border);
+      border-radius: 30px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px var(--shadow);
+      transition: var(--transition);
+      z-index: 99;
+    }
+
+    .toggle-theme:hover {
+      background: var(--verde-claro);
+      color: #fff;
+      border-color: transparent;
+    }
+
     .auth-container {
       display: flex;
       flex-direction: row;
       background: var(--bg-form);
-      border-radius: var(--radius);
+      border-radius: 22px;
       overflow: hidden;
-      box-shadow: 0 15px 45px rgba(0,0,0,0.35);
+      box-shadow: 0 15px 45px var(--shadow);
       width: 100%;
       max-width: 1000px;
       min-height: 580px;
@@ -92,8 +111,6 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      background: var(--bg-form);
-      backdrop-filter: blur(8px);
       position: relative;
       transition: var(--transition);
     }
@@ -105,7 +122,7 @@
       right: 0;
       width: 140px;
       height: 140px;
-      background: radial-gradient(circle at top right, rgba(255,214,10,0.15), transparent 70%);
+      background: radial-gradient(circle at top right, rgba(116,198,157,0.12), transparent 70%);
       z-index: 0;
     }
 
@@ -115,11 +132,11 @@
       text-align: center;
       margin-bottom: 10px;
       letter-spacing: 1px;
-      background: linear-gradient(90deg, var(--verde-mid), var(--verde-esc));
+      background: linear-gradient(90deg, var(--verde-mid), var(--verde-claro));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       position: relative;
-      animation: fadeTitle 0.8s ease forwards;
+      z-index: 2;
     }
 
     .form-side h2::after {
@@ -127,20 +144,9 @@
       display: block;
       width: 90px;
       height: 4px;
-      background: linear-gradient(90deg, var(--amarelo), var(--verde-claro));
+      background: linear-gradient(90deg, var(--verde-claro), var(--amarelo));
       border-radius: 2px;
       margin: 10px auto 25px;
-      animation: slideIn 1s ease forwards;
-    }
-
-    @keyframes fadeTitle {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes slideIn {
-      from { width: 0; opacity: 0; }
-      to { width: 90px; opacity: 1; }
     }
 
     .subtitle {
@@ -172,11 +178,10 @@
       border-color: var(--verde-claro);
       box-shadow: 0 0 0 4px rgba(82,183,136,0.25);
       outline: none;
-      background: #fff1;
     }
 
     form button {
-      background: linear-gradient(90deg, var(--amarelo), #ffb84d);
+      background: linear-gradient(90deg, var(--amarelo), #ffc93c);
       border: none;
       border-radius: 999px;
       padding: 15px;
@@ -184,14 +189,14 @@
       font-size: 16px;
       cursor: pointer;
       color: #2b2b2b;
-      box-shadow: 0 6px 20px rgba(255,174,0,0.3);
+      box-shadow: 0 6px 20px rgba(255,214,10,0.35);
       transition: all .25s ease;
     }
 
     form button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 26px rgba(255,174,0,0.4);
-      background: linear-gradient(90deg, #ffe15a, #ffc93c);
+      box-shadow: 0 10px 26px rgba(255,214,10,0.45);
+      background: linear-gradient(90deg, #ffe15a, #ffdd33);
     }
 
     .toggle-text {
@@ -219,7 +224,7 @@
     /* VISUAL SIDE */
     .visual-side {
       flex: 1;
-      background: linear-gradient(135deg, var(--verde-mid) 0%, var(--verde-esc) 100%);
+      background: linear-gradient(135deg, var(--verde-claro), var(--verde-mid));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -236,7 +241,7 @@
       position: absolute;
       width: 850px;
       height: 850px;
-      background: radial-gradient(circle at 25% 40%, rgba(255,255,255,0.15), transparent 70%);
+      background: radial-gradient(circle at 25% 40%, rgba(255,255,255,0.12), transparent 70%);
       top: -150px;
       left: -150px;
       transform: rotate(25deg);
@@ -252,7 +257,6 @@
       position: relative;
       z-index: 2;
       max-width: 400px;
-      animation: fadeIn 1s ease forwards;
     }
 
     .brand-icon {
@@ -266,7 +270,7 @@
       justify-content: center;
       font-size: 36px;
       color: var(--amarelo);
-      box-shadow: 0 0 25px rgba(255,214,10,0.4);
+      box-shadow: 0 0 25px rgba(255,214,10,0.45);
       animation: float 3s ease-in-out infinite;
     }
 
@@ -278,30 +282,34 @@
       text-shadow: 0 3px 12px rgba(0,0,0,0.45);
     }
 
+    .visual-side p {
+      font-size: 1.05rem;
+      max-width: 360px;
+      margin: 0 auto;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.45);
+      opacity: 0.95;
+    }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-6px); }
     }
 
-    /* RESPONSIVO */
     @media (max-width: 950px) {
       .auth-container { flex-direction: column-reverse; }
       .visual-side { min-height: 260px; padding: 40px 30px; }
       .visual-side h1 { font-size: 2rem; }
       .brand-icon { width: 70px; height: 70px; font-size: 30px; }
       .form-side { padding: 40px 25px; }
-      .visual-side p { max-width: 95%; }
-    }
-
-    @media (max-width: 480px) {
-      form input, form select { font-size: 14px; }
-      form button { font-size: 15px; }
     }
   </style>
 </head>
 
 <body>
+  <button class="toggle-theme" id="theme-toggle">
+    <i class="fa-solid fa-moon"></i> Escuro
+  </button>
+
   <div class="auth-container">
     <!-- FORM SIDE -->
     <div class="form-side">
@@ -349,46 +357,29 @@
           <i class="fa-solid fa-leaf"></i>
         </div>
         <h1>TaNaFeira</h1>
-        <p>Conectando produtores locais e clientes com transparência, confiança e praticidade, fortalecendo a economia regional e o consumo sustentável.</p>
+        <p>Cadastre-se como vendedor e conecte seus produtos locais com quem valoriza a produção sustentável e regional.</p>
       </div>
     </div>
   </div>
 
   <script>
-    const toggleBtn = document.getElementById('toggle-button');
-    const loginForm = document.getElementById('login-form');
-    const signupForm = document.getElementById('signup-form');
-    const formTitle = document.getElementById('form-title');
-    const formSubtitle = document.getElementById('form-subtitle');
-    const toggleMsg = document.getElementById('toggle-message');
+  const toggleBtn = document.getElementById('toggle-button');
+  const loginForm = document.getElementById('login-form');
+  const signupForm = document.getElementById('signup-form');
+  const formTitle = document.getElementById('form-title');
+  const formSubtitle = document.getElementById('form-subtitle');
+  const toggleMsg = document.getElementById('toggle-message');
+  const themeToggle = document.getElementById('theme-toggle');
+  const body = document.body;
 
-    toggleBtn.addEventListener('click', () => {
-      const isLogin = loginForm.style.display !== 'none';
-      if (isLogin) {
-        loginForm.style.display = 'none';
-        signupForm.style.display = 'flex';
-        formTitle.innerHTML = '<i class="fa-solid fa-user-plus" style="color: var(--verde-claro); margin-right: 8px;"></i> Cadastrar Novo Vendedor';
-        formSubtitle.textContent = 'Preencha as informações detalhadas para se registrar';
-        toggleMsg.textContent = 'Já tem conta?';
-        toggleBtn.textContent = 'Entrar';
-      } else {
-        loginForm.style.display = 'flex';
-        signupForm.style.display = 'none';
-        formTitle.innerHTML = '<i class="fa-solid fa-seedling" style="color: var(--verde-claro); margin-right: 8px;"></i> Login Vendedor';
-        formSubtitle.textContent = 'Entre com e-mail ou telefone';
-        toggleMsg.textContent = 'Ainda não tem conta?';
-        toggleBtn.textContent = 'Cadastrar';
-      }
-    });
-
-  // alternar login / cadastro
+  // Alternar entre login e cadastro
   toggleBtn.addEventListener('click', () => {
     const isLogin = loginForm.style.display !== 'none';
     if (isLogin) {
       loginForm.style.display = 'none';
       signupForm.style.display = 'flex';
       formTitle.innerHTML = '<i class="fa-solid fa-user-plus" style="color: var(--verde-claro); margin-right: 8px;"></i> Cadastrar Novo Vendedor';
-      formSubtitle.textContent = 'Preencha as informações detalhadas para se registrar';
+      formSubtitle.textContent = 'Preencha seus dados e informações da produção local';
       toggleMsg.textContent = 'Já tem conta?';
       toggleBtn.textContent = 'Entrar';
     } else {
@@ -401,7 +392,7 @@
     }
   });
 
-  // Função genérica para checar campos e redirecionar
+  // Validação
   function validarFormulario(form) {
     const campos = form.querySelectorAll('input, select');
     let valido = true;
@@ -420,21 +411,27 @@
       return false;
     }
 
-    // Se tudo estiver ok:
     window.location.href = 'telainicial-vend.html';
     return true;
   }
 
-  // Ação de login
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // impede envio padrão
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
     validarFormulario(loginForm);
   });
 
-  // Ação de cadastro
-  signupForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // impede envio padrão
+  signupForm.addEventListener('submit', e => {
+    e.preventDefault();
     validarFormulario(signupForm);
+  });
+
+  // Alternância de modo escuro/claro
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const dark = body.classList.contains('dark-mode');
+    themeToggle.innerHTML = dark
+      ? '<i class="fa-solid fa-sun"></i> Claro'
+      : '<i class="fa-solid fa-moon"></i> Escuro';
   });
   </script>
 </body>
