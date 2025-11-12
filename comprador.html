@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TaNaFeira — Login / Cadastro Comprador</title>
 
-  <!-- FONT AWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous"/>
-
-  <!-- GOOGLE FONT -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -18,32 +15,79 @@
       --verde-agua: #1ca57d;
       --creme: #fffdfa;
       --text: #24303a;
-      --radius: 22px;
-      --transition: all .3s ease;
-      --bg-form: rgba(255,255,255,0.92);
-      --input-bg: #fdfdfd;
-      --input-border: #ddd;
+      --bg-body: #f9f9f9;
+      --bg-form: rgba(255, 255, 255, 0.96);
+      --input-bg: #fff;
+      --input-border: #ccc;
+      --shadow: rgba(0, 0, 0, 0.25);
+      --radius: 20px;
+      --transition: all 0.3s ease;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    body.dark-mode {
+      --laranja: #ffb347;
+      --laranja-claro: #ffd580;
+      --verde-agua: #4ddbb8;
+      --creme: #121212;
+      --text: #f2f2f2;
+      --bg-body: #0e0e0e;
+      --bg-form: rgba(22, 22, 22, 0.92);
+      --input-bg: #1e1e1e;
+      --input-border: #444;
+      --shadow: rgba(255, 255, 255, 0.1);
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: 
-        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.55)),
+      background:
+        linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.55)),
         url('https://static.vecteezy.com/ti/fotos-gratis/p2/12721250-aboboras-e-cabacas-organicas-coloridas-na-feira-agricola-colhendo-o-conceito-de-tempo-de-outono-jardim-queda-planta-natural-decoracao-de-dia-das-bruxas-de-acao-de-gracas-fundo-rural-fazenda-festiva-comida-vegetariana-foto.jpeg')
         center/cover no-repeat;
+      background-color: var(--bg-body);
       color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+      transition: var(--transition);
+    }
+
+    .toggle-theme {
+      position: fixed;
+      top: 20px;
+      right: 25px;
+      background: var(--bg-form);
+      color: var(--laranja);
+      border: 2px solid var(--input-border);
+      border-radius: 30px;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 40px 20px;
-      transition: background-color .4s ease, color .4s ease;
+      gap: 8px;
+      box-shadow: 0 4px 15px var(--shadow);
+      transition: var(--transition);
+      z-index: 99;
+    }
+
+    .toggle-theme:hover {
+      background: var(--laranja);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    body.dark-mode .visual-side h1 {
+      color: #000000;
+      text-shadow: 0 0 18px rgba(0, 0, 0, 0.8);
+    }
+
+    body.dark-mode .visual-side p {
+      color: #111111;
+      text-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
     }
 
     .auth-container {
@@ -52,40 +96,27 @@
       background: var(--bg-form);
       border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: 0 15px 45px rgba(0,0,0,0.35);
+      box-shadow: 0 15px 45px var(--shadow);
       width: 100%;
       max-width: 1000px;
       min-height: 580px;
-      backdrop-filter: blur(12px);
-      animation: fadeIn .8s ease forwards;
+      backdrop-filter: blur(10px);
       transition: var(--transition);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* FORM SIDE */
     .form-side {
       flex: 1;
       padding: 60px 50px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      position: relative;
+      color: var(--text);
       transition: var(--transition);
     }
 
-    .form-side::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 140px;
-      height: 140px;
-      background: radial-gradient(circle at top right, rgba(255,140,0,0.12), transparent 70%);
-      z-index: 0;
+    body.dark-mode .form-side {
+      background-color: rgba(15, 15, 15, 0.8);
+      color: #f2f2f2;
     }
 
     .form-side h2 {
@@ -97,9 +128,6 @@
       background: linear-gradient(90deg, var(--laranja), var(--laranja-claro));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      position: relative;
-      z-index: 2;
-      animation: fadeTitle 0.8s ease forwards;
     }
 
     .form-side h2::after {
@@ -110,35 +138,25 @@
       background: linear-gradient(90deg, var(--laranja), var(--verde-agua));
       border-radius: 2px;
       margin: 10px auto 25px;
-      animation: slideIn 1s ease forwards;
-    }
-
-    @keyframes fadeTitle {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes slideIn {
-      from { width: 0; opacity: 0; }
-      to { width: 90px; opacity: 1; }
     }
 
     .subtitle {
-      color: #666;
-      font-size: 1rem;
-      margin-bottom: 35px;
+      color: #777;
       text-align: center;
+      margin-bottom: 35px;
+    }
+
+    body.dark-mode .subtitle {
+      color: #ccc;
     }
 
     form {
       display: flex;
       flex-direction: column;
       gap: 18px;
-      width: 100%;
-      z-index: 2;
     }
 
-    form input, form select {
+    form input {
       padding: 14px 16px;
       border: 1px solid var(--input-border);
       border-radius: 14px;
@@ -148,11 +166,10 @@
       transition: var(--transition);
     }
 
-    form input:focus, form select:focus {
+    form input:focus {
       border-color: var(--laranja);
       box-shadow: 0 0 0 4px rgba(255,140,0,0.25);
       outline: none;
-      background: #fff1;
     }
 
     form button {
@@ -171,14 +188,17 @@
     form button:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 26px rgba(255,174,0,0.4);
-      background: linear-gradient(90deg, #ffb347, #ffc93c);
     }
 
     .toggle-text {
-      font-size: 15px;
-      color: #444;
       text-align: center;
       margin-top: 30px;
+      font-size: 15px;
+      color: #555;
+    }
+
+    body.dark-mode .toggle-text {
+      color: #ccc;
     }
 
     .toggle-text button {
@@ -187,7 +207,6 @@
       color: var(--laranja);
       font-weight: 700;
       cursor: pointer;
-      font-size: 15px;
       transition: var(--transition);
     }
 
@@ -196,65 +215,45 @@
       text-decoration: underline;
     }
 
-    /* VISUAL SIDE */
     .visual-side {
       flex: 1;
       background: linear-gradient(135deg, var(--laranja-claro), var(--verde-agua));
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 50px 40px;
       color: #fff;
       text-align: center;
       position: relative;
-      overflow: hidden;
-      transition: var(--transition);
-    }
-
-    .visual-side::before {
-      content: "";
-      position: absolute;
-      width: 850px;
-      height: 850px;
-      background: radial-gradient(circle at 25% 40%, rgba(255,255,255,0.12), transparent 70%);
-      top: -150px;
-      left: -150px;
-      transform: rotate(25deg);
-      transition: 1.5s ease;
-    }
-
-    .visual-side:hover::before {
-      transform: rotate(65deg);
-      opacity: 0.7;
-    }
-
-    .brand-content {
-      position: relative;
-      z-index: 2;
-      max-width: 400px;
-      animation: fadeIn 1s ease forwards;
+      padding: 50px;
     }
 
     .brand-icon {
-      width: 85px;
-      height: 85px;
+      width: 95px;
+      height: 95px;
       margin: 0 auto 20px;
       border-radius: 50%;
       background: rgba(255,255,255,0.15);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 36px;
+      font-size: 40px;
       color: var(--verde-agua);
-      box-shadow: 0 0 25px rgba(28,165,125,0.45);
+      box-shadow: 0 0 30px rgba(28,165,125,0.5);
       animation: float 3s ease-in-out infinite;
+      transition: var(--transition);
+    }
+
+    body.dark-mode .brand-icon {
+        background: rgba(255, 255, 255, 0.12);  
+        color: #000000;                        
+        box-shadow: 0 0 40px rgba(60, 59, 59, 0.8),
+                    0 0 80px rgba(255, 255, 255, 0.5);
+        text-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
     }
 
     .visual-side h1 {
-      font-size: 2.8rem;
-      margin-bottom: 16px;
-      font-weight: 700;
-      letter-spacing: 1px;
+      font-size: 2.6rem;
+      margin-bottom: 12px;
       text-shadow: 0 3px 12px rgba(0,0,0,0.45);
     }
 
@@ -262,7 +261,6 @@
       font-size: 1.05rem;
       max-width: 360px;
       margin: 0 auto;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.45);
       opacity: 0.95;
     }
 
@@ -271,26 +269,22 @@
       50% { transform: translateY(-6px); }
     }
 
-    /* RESPONSIVO */
     @media (max-width: 950px) {
       .auth-container { flex-direction: column-reverse; }
-      .visual-side { min-height: 260px; padding: 40px 30px; }
-      .visual-side h1 { font-size: 2rem; }
-      .brand-icon { width: 70px; height: 70px; font-size: 30px; }
+      .visual-side { min-height: 250px; padding: 40px 30px; }
       .form-side { padding: 40px 25px; }
-      .visual-side p { max-width: 95%; }
-    }
-
-    @media (max-width: 480px) {
-      form input, form select { font-size: 14px; }
-      form button { font-size: 15px; }
+      .visual-side h1 { font-size: 2rem; }
     }
   </style>
 </head>
 
 <body>
+  <button class="toggle-theme" id="theme-toggle">
+    <i class="fa-solid fa-moon"></i> Escuro
+  </button>
+
   <div class="auth-container">
-    <!-- FORM SIDE -->
+
     <div class="form-side">
       <h2 id="form-title">
         <i class="fa-solid fa-basket-shopping" style="color: var(--verde-agua); margin-right: 8px;"></i>
@@ -320,7 +314,6 @@
       </p>
     </div>
 
-    <!-- VISUAL SIDE -->
     <div class="visual-side">
       <div class="brand-content">
         <div class="brand-icon">
@@ -339,8 +332,9 @@
   const formTitle = document.getElementById('form-title');
   const formSubtitle = document.getElementById('form-subtitle');
   const toggleMsg = document.getElementById('toggle-message');
+  const themeToggle = document.getElementById('theme-toggle');
+  const body = document.body;
 
-  // Alterna entre login e cadastro
   toggleBtn.addEventListener('click', () => {
     const isLogin = loginForm.style.display !== 'none';
     if (isLogin) {
@@ -360,9 +354,8 @@
     }
   });
 
-  // Função para validar e redirecionar
   function validarFormulario(form) {
-    const campos = form.querySelectorAll('input, select');
+    const campos = form.querySelectorAll('input');
     let valido = true;
 
     campos.forEach(campo => {
@@ -379,22 +372,36 @@
       return false;
     }
 
-    // Se estiver tudo certo, redireciona
     window.location.href = 'telainicial-comp.html';
     return true;
   }
 
-  // Validação para o formulário de login
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     validarFormulario(loginForm);
   });
 
-  // Validação para o formulário de cadastro
   signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
     validarFormulario(signupForm);
   });
-</script>
+
+  themeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const dark = body.classList.contains('dark-mode');
+    themeToggle.innerHTML = dark
+      ? '<i class="fa-solid fa-sun"></i> Claro'
+      : '<i class="fa-solid fa-moon"></i> Escuro';
+    localStorage.setItem('tema', dark ? 'escuro' : 'claro');
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const temaSalvo = localStorage.getItem('tema');
+    if (temaSalvo === 'escuro') {
+      body.classList.add('dark-mode');
+      themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i> Claro';
+    }
+  });
+  </script>
 </body>
 </html>
