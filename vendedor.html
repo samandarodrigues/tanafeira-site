@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TaNaFeira — Login / Cadastro Vendedor</title>
 
-  <!-- FONT AWESOME -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -58,7 +57,6 @@
       transition: background-color .4s ease, color .4s ease;
     }
 
-    /* BOTÃO MODO ESCURO */
     .toggle-theme {
       position: fixed;
       top: 20px;
@@ -67,15 +65,22 @@
       color: var(--verde-mid);
       border: 2px solid var(--input-border);
       border-radius: 30px;
-      padding: 8px 14px;
+      padding: 8px 16px;
       cursor: pointer;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 15px;
       display: flex;
       align-items: center;
       gap: 8px;
       box-shadow: 0 4px 15px var(--shadow);
       transition: var(--transition);
       z-index: 99;
+    }
+
+    body.dark-mode .toggle-theme {
+      color: #fff !important;
+      background: var(--verde-mid);
+      border-color: var(--verde-claro);
     }
 
     .toggle-theme:hover {
@@ -104,7 +109,16 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* FORM SIDE */
+    body.dark-mode .subtitle,
+    body.dark-mode .toggle-text {
+    color: #fff;
+    }
+
+
+    body.dark-mode .toggle-text button {
+    color: #1f8d67;
+    }
+
     .form-side {
       flex: 1;
       padding: 60px 50px;
@@ -221,7 +235,6 @@
       text-decoration: underline;
     }
 
-    /* VISUAL SIDE */
     .visual-side {
       flex: 1;
       background: linear-gradient(135deg, var(--verde-claro), var(--verde-mid));
@@ -282,6 +295,11 @@
       text-shadow: 0 3px 12px rgba(0,0,0,0.45);
     }
 
+    body.dark-mode .visual-side h1 {
+      color: #fff;
+      text-shadow: 0 0 12px rgba(149,213,178,0.6);
+    }
+
     .visual-side p {
       font-size: 1.05rem;
       max-width: 360px;
@@ -311,7 +329,7 @@
   </button>
 
   <div class="auth-container">
-    <!-- FORM SIDE -->
+
     <div class="form-side">
       <h2 id="form-title">
         <i class="fa-solid fa-seedling" style="color: var(--verde-claro); margin-right: 8px;"></i>
@@ -350,7 +368,6 @@
       </p>
     </div>
 
-    <!-- VISUAL SIDE -->
     <div class="visual-side">
       <div class="brand-content">
         <div class="brand-icon">
@@ -372,8 +389,7 @@
   const themeToggle = document.getElementById('theme-toggle');
   const body = document.body;
 
-  // Alternar entre login e cadastro
-  toggleBtn.addEventListener('click', () => {
+    toggleBtn.addEventListener('click', () => {
     const isLogin = loginForm.style.display !== 'none';
     if (isLogin) {
       loginForm.style.display = 'none';
@@ -392,7 +408,6 @@
     }
   });
 
-  // Validação
   function validarFormulario(form) {
     const campos = form.querySelectorAll('input, select');
     let valido = true;
@@ -425,13 +440,21 @@
     validarFormulario(signupForm);
   });
 
-  // Alternância de modo escuro/claro
   themeToggle.addEventListener('click', () => {
     body.classList.toggle('dark-mode');
     const dark = body.classList.contains('dark-mode');
     themeToggle.innerHTML = dark
       ? '<i class="fa-solid fa-sun"></i> Claro'
       : '<i class="fa-solid fa-moon"></i> Escuro';
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      body.classList.add('dark-mode');
+      themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i> Claro';
+    }
   });
   </script>
 </body>
